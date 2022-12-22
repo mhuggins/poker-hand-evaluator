@@ -9,14 +9,15 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --check src",
+    "format:fix": "prettier --write src",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test && yarn lint",
-    "preversion": "yarn lint",
+    "prepublishOnly": "yarn lint && yarn format && yarn test",
+    "preversion": "yarn lint && yarn format",
     "postversion": "git push && git push --tags",
-    "version": "yarn format && git add -A src"
+    "version": "yarn format:fix && git add -A src"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
